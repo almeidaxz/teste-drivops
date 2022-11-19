@@ -18,7 +18,7 @@ export default function Login() {
                         <input className="rounded-lg px-2 py-1" type="text" placeholder="Manager's password" />
                     </label>
                     <button
-                        onClick={(e) => navigate('/home')}
+                        onClick={(e) => navigate('/dashboard')}
                         className="rounded-lg py-1 px-4 bg-sky-700 opacity-80 hover:opacity-100 hover:scale-[1.01]"
                     >
                         Sign In
