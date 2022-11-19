@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import './styles.css';
 
 export default function Login() {
+    const navigate = useNavigate();
+
     return (
         <div className="h-screen w-full flex justify-between ">
             <div className="login-bg w-1/2" />
@@ -14,7 +17,10 @@ export default function Login() {
                         Password*
                         <input className="rounded-lg px-2 py-1" type="text" placeholder="Manager's password" />
                     </label>
-                    <button className="rounded-lg py-1 px-4 bg-sky-700 opacity-80 hover:opacity-100 hover:scale-[1.01]">
+                    <button
+                        onClick={(e) => navigate('/home')}
+                        className="rounded-lg py-1 px-4 bg-sky-700 opacity-80 hover:opacity-100 hover:scale-[1.01]"
+                    >
                         Sign In
                     </button>
                 </div>
