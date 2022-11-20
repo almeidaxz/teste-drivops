@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { useEffect, useState } from 'react';
-import { Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 export default function SalesBySalesmen({ allSalesmen, allSales }) {
     const [resultData, setResultData] = useState([]);
@@ -61,19 +61,28 @@ export default function SalesBySalesmen({ allSalesmen, allSales }) {
     }, [allSalesmen, allSales]);
 
     return (
-        <BarChart width={530} height={250} data={resultData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            {resultData.map((item, index) => {
-                const salesmenList = Object.keys(item).filter((item) => {
-                    return item !== 'month';
-                });
+        <div className='flex flex-col w-[45%] items-center'>
+            <ResponsiveContainer height={250} className='mb-6'>
+                <BarChart
+                    data={resultData}
+                    margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+                >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <Tooltip />
+                    {resultData.map((item, index) => {
+                        const salesmenList = Object.keys(item).filter((item) => {
+                            return item !== 'month';
+                        });
+                        const randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
-                return <Bar key={resultData.month} dataKey={salesmenList[index]} fill="#8884d8" />
-            })}
-        </BarChart>
+                        return <Bar key={`${salesmenList[index]}-${resultData.month}`} dataKey={salesmenList[index]} fill={`#${randomColor}`} />
+                    })}
+                </BarChart>
+            </ResponsiveContainer>
+            <h1 className='font-bold'>VENDAS POR VENDEDOR</h1>
+        </div>
+
     )
 }

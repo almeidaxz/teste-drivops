@@ -25,15 +25,15 @@ export default function NavBar() {
                     to={'/salesmen'}
                     className={({ isActive }) => "nav-link" + (isActive ? " underline" : "")}
                 >
-                    Salesmen
+                    Vendedores
                 </NavLink>
                 <NavLink
                     to={'/cars'}
                     className={({ isActive }) => "nav-link" + (isActive ? " underline" : "")}
                 >
-                    Cars
+                    Carros
                 </NavLink>
-                <SignOut onClick={handleSignOut} size={30} />
+                <SignOut className='cursor-pointer' onClick={handleSignOut} size={30} />
             </nav>
         </header>
     )
