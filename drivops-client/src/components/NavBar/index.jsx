@@ -11,7 +11,7 @@ export default function NavBar() {
     }
 
     return (
-        <header className="w-full h-14 fixed top-0 flex items-center justify-between px-[15%] bg-violet-100 text-xl">
+        <header className="w-full h-14 fixed top-0 flex items-center justify-between px-[15%] bg-violet-100 text-xl z-10">
             <img className='w-24' src={GenericLogo} alt="generic company logo" />
 
             <nav className='flex gap-6 items-center'>

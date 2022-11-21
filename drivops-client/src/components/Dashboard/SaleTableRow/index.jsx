@@ -2,8 +2,15 @@ import { useEffect } from 'react';
 import DummyCarAvatar from '../../../assets/car-dummy.jpg';
 import { Pencil, Trash } from 'phosphor-react';
 import { formatValue } from '../../../utils/format';
+import useSaleForm from '../../../hooks/useSaleForm';
+import useAllSales from '../../../hooks/useAllSales';
+import useAllSalesmen from '../../../hooks/useAllSalesmen';
 
-export default function SaleTableRow({ sale, allSalesmen, allCars }) {
+export default function SaleTableRow({ sale, allCars }) {
+    const {saleForm, setSaleForm} = useSaleForm();
+    const {allSales, setAllSales} = useAllSales();
+    const {allSalesmen, setAllSalesmen} = useAllSalesmen();
+
     const selectedCar = allCars?.find((car) => {
         return car?.id === sale?.car_id
     });
@@ -14,7 +21,6 @@ export default function SaleTableRow({ sale, allSalesmen, allCars }) {
     });
     const salesmanName = selectedSalesman.name;
 
-    console.log(sale);
 
     const handleEdit = async () => {
         console.log('edit');
@@ -43,14 +49,14 @@ export default function SaleTableRow({ sale, allSalesmen, allCars }) {
                 <Pencil
                     onClick={handleEdit}
                     size={20}
-                    className='cursor-pointer'
+                    className='cursor-pointer hover:scale-[1.05]'
                     color='#6fb2dc'
                     weight='bold'
                 />
                 <Trash
                     onClick={handleDelete}
                     size={20}
-                    className='cursor-pointer'
+                    className='cursor-pointer hover:scale-[1.05]'
                     color="#dc6f6f"
                     weight="bold"
                 />

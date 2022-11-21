@@ -1,15 +1,18 @@
-import NavBar from "../../components/NavBar";
-import MonthlySales from "../../components/Dashboard/MonthlySales";
-import api from '../../services/apiConnection';
-import { useEffect, useState } from "react";
-import SalesBySalesmen from "../../components/Dashboard/SalesBySalesmen";
+import { useEffect } from "react";
 import CarsAverage from "../../components/Dashboard/CarsAverage";
+import MonthlySales from "../../components/Dashboard/MonthlySales";
+import SalesBySalesmen from "../../components/Dashboard/SalesBySalesmen";
 import SaleTableRow from "../../components/Dashboard/SaleTableRow";
+import NavBar from "../../components/NavBar";
+import useAllCarsProvider from "../../hooks/useAllCarsProvider";
+import useAllSalesmenProvider from "../../hooks/useAllSalesmenProvider";
+import useAllSalesProvider from "../../hooks/useAllSalesProvider";
+import api from '../../services/apiConnection';
 
 export default function Dashboard() {
-  const [allSales, setAllSales] = useState([]);
-  const [allSalesmen, setAllSalesmen] = useState([]);
-  const [allCars, setAllCars] = useState([]);
+  const { allSales, setAllSales } = useAllSalesProvider();
+  const { allCars, setAllCars } = useAllCarsProvider();
+  const { allSalesmen, setAllSalesmen } = useAllSalesmenProvider();
 
   const getAllSales = async () => {
     const { data } = await api.get('/sales/list');
@@ -39,13 +42,18 @@ export default function Dashboard() {
   return (
     <>
       <NavBar />
-      <main className="flex flex-col items-center justify-center mt-32">
+      <main className="flex flex-col items-center justify-center mt-24">
         <MonthlySales allSales={allSales} />
-        <div className="w-[70%] flex justify-between mb-6">
+        <div className="w-[70%] flex justify-between mb-10">
           <SalesBySalesmen allSalesmen={allSalesmen} allSales={allSales} />
           <CarsAverage allCars={allCars} allSales={allSales} />
         </div>
-        <section className="w-full flex flex-col items-center mb-8">
+        <section className="w-full flex flex-col items-center mb-10">
+          <button
+            className="self-end mr-[15%] mb-4 px-6 py-2 bg-sky-400 font-bold rounded-lg"
+          >
+            Cadastrar Venda
+          </button>
           <table className="table-auto w-[70%] text-start">
             <thead className="th h-14 bg-fuchsia-400">
               <tr>
