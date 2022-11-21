@@ -1,9 +1,10 @@
 import NavBar from "../../components/NavBar";
-import MonthlySales from "../../components/MonthlySales";
+import MonthlySales from "../../components/Dashboard/MonthlySales";
 import api from '../../services/apiConnection';
 import { useEffect, useState } from "react";
-import SalesBySalesmen from "../../components/SalesBySalesmen";
-import CarsAverage from "../../components/CarsAverage";
+import SalesBySalesmen from "../../components/Dashboard/SalesBySalesmen";
+import CarsAverage from "../../components/Dashboard/CarsAverage";
+import SaleTableRow from "../../components/Dashboard/SaleTableRow";
 
 export default function Dashboard() {
   const [allSales, setAllSales] = useState([]);
@@ -40,10 +41,29 @@ export default function Dashboard() {
       <NavBar />
       <main className="flex flex-col items-center justify-center mt-32">
         <MonthlySales allSales={allSales} />
-        <div className="w-[70%] flex justify-between">
+        <div className="w-[70%] flex justify-between mb-6">
           <SalesBySalesmen allSalesmen={allSalesmen} allSales={allSales} />
           <CarsAverage allCars={allCars} allSales={allSales} />
         </div>
+        <section className="w-full flex flex-col items-center mb-8">
+          <table className="table-auto w-[70%] text-start">
+            <thead className="th h-14 bg-fuchsia-400">
+              <tr>
+                <th className="rounded-l-lg">Imagem</th>
+                <th>Veículo</th>
+                <th>Vendedor</th>
+                <th>Quantidade</th>
+                <th>Valor</th>
+                <th className="rounded-r-lg">Editar/Excluir</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allSales.map((sale) => {
+                return <SaleTableRow key={sale.id} sale={sale} allCars={allCars} allSalesmen={allSalesmen} />
+              })}
+            </tbody>
+          </table>
+        </section>
       </main>
     </>
   )
